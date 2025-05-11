@@ -1,7 +1,6 @@
 module Main exposing (main)
 
 import Browser
-import Browser.Dom exposing (getElement)
 import Donut.Chart as Chart
 import Html exposing (Html)
 import Html.Attributes as HA
@@ -115,15 +114,22 @@ view model =
         donutInputs =
             [ users, users1 ]
     in
-    Html.ul []
-        (donutInputs
-            |> List.map
-                (\inputs ->
-                    Html.li
-                        [ HA.class "text-red-500 flex w-[500px] h-[500px]" ]
-                        [ Chart.view ChartMsg inputs model.chart ]
-                )
-        )
+    Html.div
+        []
+        [ Html.h1
+            [ HA.class "text-center text-4xl m-2 text-cyan-400" ]
+            [ Html.text "Pie Charts" ]
+        , Html.ul
+            [ HA.class "flex" ]
+            (donutInputs
+                |> List.map
+                    (\inputs ->
+                        Html.li
+                            [ HA.class "text-red-500 flex w-[500px] h-[500px]" ]
+                            [ Chart.view ChartMsg inputs model.chart ]
+                    )
+            )
+        ]
 
 
 

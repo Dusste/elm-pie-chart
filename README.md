@@ -1,4 +1,4 @@
-# Simple repo to kick-start your Elm project
+# Simple pie chart in elm
 
 - ```sh
   npm i

@@ -23,8 +23,7 @@ toChartData numOfVoters numOfVariations sortedLst =
                     List.map (\{ groupBy } -> groupBy) xs
             in
             if List.isEmpty xs then
-                { numOfVoters = numOfVoters
-                , percentage = numOfVoters / numOfVariations * 100
+                { percentage = numOfVoters / numOfVariations * 100
                 , uniqueVoteValue = x.groupBy
                 , id = x.id
                 , color = x.color
@@ -37,7 +36,6 @@ toChartData numOfVoters numOfVariations sortedLst =
             else
                 { uniqueVoteValue = x.groupBy
                 , percentage = numOfVoters / numOfVariations * 100
-                , numOfVoters = numOfVoters
                 , id = x.id
                 , color = x.color
                 }

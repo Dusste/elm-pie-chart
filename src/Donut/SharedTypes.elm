@@ -18,7 +18,6 @@ type VoteState
 type alias ChartData =
     { uniqueVoteValue : String
     , percentage : Float
-    , numOfVoters : Float
     , id : String
     , color : Maybe String
     }
