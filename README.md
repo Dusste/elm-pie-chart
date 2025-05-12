@@ -65,4 +65,5 @@ chartData =
 ## 🚀 Demo
 
 Explore the live demo: [https://dusste.github.io/elm-pie-chart](https://dusste.github.io/elm-pie-chart)
+
 ```
