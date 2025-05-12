@@ -22,17 +22,11 @@ jobs:
       - name: 📦 Install Elm
         run: npm install -g elm
 
-      - name: 🧱 Build Elm
+      - name: 🧱 Build Elm + prepare dist folder
         run: |
           mkdir dist
           cp index.html dist/index.html
           elm make src/Main.elm --output=dist/elm.js
-
-      - name: 🚀 Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
 
       - name: 🚀 Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
