@@ -2,12 +2,35 @@ module Donut.Util exposing (..)
 
 import Dict exposing (Dict)
 import Donut.SharedTypes as SharedTypes
-import Platform exposing (sendToApp)
 
 
 slice : Int -> Int -> List a -> List a
 slice start end lst =
     List.take (end - start) (List.drop start lst)
+
+
+fromComplexToChartData : List SharedTypes.RawDataPoint -> List SharedTypes.ChartData
+fromComplexToChartData dataPointLst =
+    let
+        totalAmount : Int
+        totalAmount =
+            dataPointLst
+                |> List.map .amount
+                |> List.sum
+
+        chartDataLst : List SharedTypes.ChartData
+        chartDataLst =
+            dataPointLst
+                |> List.map
+                    (\dataPoint ->
+                        { percentage = (toFloat dataPoint.amount / toFloat totalAmount) * 100
+                        , uniqueVoteValue = dataPoint.label
+                        , id = dataPoint.id
+                        , color = dataPoint.color
+                        }
+                    )
+    in
+    chartDataLst
 
 
 toChartData : Float -> Float -> List SharedTypes.DataPoint -> List SharedTypes.ChartData

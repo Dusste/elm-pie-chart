@@ -1,4 +1,4 @@
-module Donut.Chart exposing (DonutInput, Model, Msg, init, update, view)
+module Donut.Chart exposing (DonutInput(..), Model, Msg, init, update, view)
 
 import Donut.SharedTypes as SharedTypes
 import Donut.Util as Util
@@ -32,8 +32,9 @@ init =
     ( initialModel, Cmd.none )
 
 
-type alias DonutInput =
-    List SharedTypes.DataPoint
+type DonutInput
+    = GroupedBy (List SharedTypes.DataPoint)
+    | RawAmounts (List SharedTypes.RawDataPoint)
 
 
 type alias DonutOutput =
@@ -78,21 +79,26 @@ update msg model =
 
 
 inputToOutput : DonutInput -> DonutOutput
-inputToOutput dataPointLst =
+inputToOutput dataPoint =
     let
         chartDataLst : List SharedTypes.ChartData
         chartDataLst =
-            dataPointLst
-                |> List.sortBy
-                    (\dataPoint ->
-                        case dataPoint.groupBy |> String.toInt |> Maybe.map toFloat of
-                            Just float ->
-                                float
+            case dataPoint of
+                GroupedBy dataPointLst ->
+                    dataPointLst
+                        |> List.sortBy
+                            (\dataPoint_ ->
+                                case dataPoint_.groupBy |> String.toInt |> Maybe.map toFloat of
+                                    Just float ->
+                                        float
 
-                            Nothing ->
-                                -1
-                    )
-                |> Util.toChartData 1 (List.length dataPointLst |> toFloat)
+                                    Nothing ->
+                                        -1
+                            )
+                        |> Util.toChartData 1 (List.length dataPointLst |> toFloat)
+
+                RawAmounts dataPointLst ->
+                    Util.fromComplexToChartData dataPointLst
 
         percentLst : List Float
         percentLst =

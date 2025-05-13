@@ -1,4 +1,4 @@
-module Donut.SharedTypes exposing (ChartData, DataPoint)
+module Donut.SharedTypes exposing (ChartData, DataPoint, RawDataPoint)
 
 
 type alias DataPoint =
@@ -9,10 +9,12 @@ type alias DataPoint =
     }
 
 
-type VoteState
-    = NotVoted
-    | HiddenVote Float
-    | Voted Float
+type alias RawDataPoint =
+    { label : String
+    , id : String
+    , amount : Int
+    , color : Maybe String
+    }
 
 
 type alias ChartData =

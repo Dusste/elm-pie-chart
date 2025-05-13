@@ -78,6 +78,25 @@ users =
     ]
 
 
+users2 =
+    [ { label = "low"
+      , id = "low"
+      , amount = 30
+      , color = Just "green"
+      }
+    , { label = "medium"
+      , id = "medium"
+      , amount = 50
+      , color = Just "yellow"
+      }
+    , { label = "high"
+      , id = "high"
+      , amount = 20
+      , color = Just "red"
+      }
+    ]
+
+
 users1 =
     [ { label = "Name"
       , id = "123213123321"
@@ -112,7 +131,7 @@ view model =
     let
         donutInputs : List Chart.DonutInput
         donutInputs =
-            [ users, users1 ]
+            [ Chart.GroupedBy users, Chart.GroupedBy users1, Chart.RawAmounts users2 ]
     in
     Html.div
         []
