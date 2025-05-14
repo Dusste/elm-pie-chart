@@ -82,17 +82,17 @@ users2 =
     [ { label = "low"
       , id = "low"
       , amount = 30
-      , color = Just "green"
+      , color = Just "bg-green-400"
       }
     , { label = "medium"
       , id = "medium"
       , amount = 50
-      , color = Just "yellow"
+      , color = Just "bg-orange-400"
       }
     , { label = "high"
       , id = "high"
       , amount = 20
-      , color = Just "red"
+      , color = Just "bg-red-400"
       }
     ]
 

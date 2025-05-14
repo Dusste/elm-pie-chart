@@ -18,6 +18,7 @@ fromComplexToChartData dataPointLst =
                 |> List.map .amount
                 |> List.sum
 
+
         chartDataLst : List SharedTypes.ChartData
         chartDataLst =
             dataPointLst
@@ -26,7 +27,7 @@ fromComplexToChartData dataPointLst =
                         { percentage = (toFloat dataPoint.amount / toFloat totalAmount) * 100
                         , uniqueVoteValue = dataPoint.label
                         , id = dataPoint.id
-                        , color = dataPoint.color
+                        , color = Just <| fromTWcolorToHex dataPoint.color
                         }
                     )
     in
@@ -44,12 +45,17 @@ toChartData numOfVoters numOfVariations sortedLst =
                 groupByLst : List String
                 groupByLst =
                     List.map (\{ groupBy } -> groupBy) xs
+
+                determineColor : String
+                determineColor =
+                    fromTWcolorToHex x.color
+              
             in
             if List.isEmpty xs then
                 { percentage = numOfVoters / numOfVariations * 100
                 , uniqueVoteValue = x.groupBy
                 , id = x.id
-                , color = x.color
+                , color = Just determineColor
                 }
                     :: toChartData 1 numOfVariations []
 
@@ -60,7 +66,7 @@ toChartData numOfVoters numOfVariations sortedLst =
                 { uniqueVoteValue = x.groupBy
                 , percentage = numOfVoters / numOfVariations * 100
                 , id = x.id
-                , color = x.color
+                , color = Just determineColor
                 }
                     :: toChartData 1 numOfVariations xs
 
@@ -130,6 +136,15 @@ fromTWcolorToHex twCol =
 
                 else if color == "bg-pink-300" then
                     Just "#f9a8d4"
+
+                else if color == "bg-green-400" then
+                    Just "rgb(74 222 128)"
+
+                else if color == "bg-orange-400" then
+                    Just "rgb(251 146 60)"
+
+                else if color == "bg-red-400" then
+                    Just "rgb(248 113 113)"
                     -- else if color == Tw.sky_500 then
                     --     Just "#0ea5e9"
                     -- else if color == Tw.teal_200 then
@@ -160,7 +175,7 @@ fromTWcolorToHex twCol =
                     --     Just "#7dd3fc"
 
                 else
-                    Nothing
+                    Just color
             )
         |> Maybe.withDefault "#2dd4bf"
 

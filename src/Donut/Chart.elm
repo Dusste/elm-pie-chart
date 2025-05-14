@@ -144,8 +144,9 @@ view toSelf donutInput model =
                 , SvgAttr.class "w-full h-auto"
                 , SvgAttr.transform "rotate(-90 20 20)"
                 , SvgAttr.viewBox "0 0 40 40"
-                , SvgAttr.class "w-full h-auto ml-2 mt-2"
+                , SvgAttr.class "w-full h-auto"
                 , SvgAttr.transform "rotate(-90 20 20)"
+                , SvgAttr.transform "translate(0,-25px)"
                 ]
                 (Svg.circle
                     [ SvgAttr.cx "20"
