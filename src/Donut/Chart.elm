@@ -272,14 +272,16 @@ viewTooltip model donutOutput =
             case List.filter (\c -> c.uniqueVoteValue == segmentId) donutOutput.chartData of
                 [ chartData ] ->
                     Html.div
-                        [ HA.class "bg-white w-[100px] shadow-md rounded p-4 border border-gray-200 text-sm absolute"
-                        , HA.style "left" "100%"
+                        [ HA.class "bg-white shadow-md rounded px-2 py-1 border border-gray-200 text-sm absolute"
+                        , HA.style "left" "90%"
                         ]
                         [ Html.p
-                            [ HA.class "text-gray-700 font-medium" ]
+                            [ HA.class "text-gray-700 font-semibold"
+                            , HA.style "color" (chartData.color |> Maybe.withDefault "text-gray-700")
+                            ]
                             [ Html.text chartData.uniqueVoteValue ]
                         , Html.p
-                            [ HA.class "text-gray-500" ]
+                            [ HA.class "text-gray-500 font-semibold" ]
                             [ Html.text (String.fromInt (round chartData.percentage) ++ "%") ]
                         ]
 
