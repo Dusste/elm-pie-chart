@@ -8,12 +8,11 @@ An interactive, accessible, and customizable pie/donut chart module for Elm 0.19
 
 ## Features
 
-- Donut-style chart with a true center hole
+- Donut-style chart
 - Custom segment colors
-- Two input modes: group-by or raw totals
+- Two input modes: group-by or raw totals (see Main.elm for usage)
 - Hover-to-reveal segment tooltip inside the chart
 - Tailwind CSS support
-- Smooth transitions and spacing between arcs
 
 ## Usage
 
