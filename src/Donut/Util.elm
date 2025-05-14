@@ -18,7 +18,6 @@ fromComplexToChartData dataPointLst =
                 |> List.map .amount
                 |> List.sum
 
-
         chartDataLst : List SharedTypes.ChartData
         chartDataLst =
             dataPointLst
@@ -49,7 +48,6 @@ toChartData numOfVoters numOfVariations sortedLst =
                 determineColor : String
                 determineColor =
                     fromTWcolorToHex x.color
-              
             in
             if List.isEmpty xs then
                 { percentage = numOfVoters / numOfVariations * 100
@@ -145,34 +143,48 @@ fromTWcolorToHex twCol =
 
                 else if color == "bg-red-400" then
                     Just "rgb(248 113 113)"
-                    -- else if color == Tw.sky_500 then
-                    --     Just "#0ea5e9"
-                    -- else if color == Tw.teal_200 then
-                    --     Just "#99f6e4"
-                    -- else if color == Tw.pink_500 then
-                    --     Just "#ec4899"
-                    -- else if color == Tw.teal_300 then
-                    --     Just "#5eead4"
-                    -- else if color == Tw.lime_200 then
-                    --     Just "#d9f99d"
-                    -- else if color == Tw.sky_900 then
-                    --     Just "#0c4a6e"
-                    -- else if color == Tw.pink_600 then
-                    --     Just "#db2777"
-                    -- else if color == Tw.teal_600 then
-                    --     Just "#0d9488"
-                    -- else if color == Tw.sky_800 then
-                    --     Just "#075985"
-                    -- else if color == Tw.pink_900 then
-                    --     Just "#831843"
-                    -- else if color == Tw.sky_200 then
-                    --     Just "#bae6fd"
-                    -- else if color == Tw.lime_800 then
-                    --     Just "#3f6212"
-                    -- else if color == Tw.pink_800 then
-                    --     Just "#9d174d"
-                    -- else if color == Tw.sky_300 then
-                    --     Just "#7dd3fc"
+
+                else if color == "bg-sky-500" then
+                    Just "#0ea5e9"
+
+                else if color == "bg-teal-200" then
+                    Just "#99f6e4"
+
+                else if color == "bg-pink-500" then
+                    Just "#ec4899"
+
+                else if color == "bg-teal-300" then
+                    Just "#5eead4"
+
+                else if color == "bg-lime-200" then
+                    Just "#d9f99d"
+
+                else if color == "bg-sky-900" then
+                    Just "#0c4a6e"
+
+                else if color == "bg-pink-600" then
+                    Just "#db2777"
+
+                else if color == "bg-teal-600" then
+                    Just "#0d9488"
+
+                else if color == "bg-sky-800" then
+                    Just "#075985"
+
+                else if color == "bg-pink-900" then
+                    Just "#831843"
+
+                else if color == "bg-sky-200" then
+                    Just "#bae6fd"
+
+                else if color == "bg-lime-800" then
+                    Just "#3f6212"
+
+                else if color == "bg-pink-800" then
+                    Just "#9d174d"
+
+                else if color == "bg-sky-300" then
+                    Just "#7dd3fc"
 
                 else
                     Just color
@@ -189,32 +201,33 @@ colorConfig =
         , ( 3, "bg-purple-900" )
         , ( 4, "bg-sky-700" )
         , ( 5, "bg-lime-500" )
-        , ( 9, "bg-pink-700" )
-        , ( 8, "bg-teal-700" )
-        , ( 11, "bg-lime-900" )
-        , ( 10, "bg-teal-800" )
-        , ( 15, "bg-pink-200" )
-        , ( 7, "bg-lime-300" )
         , ( 6, "bg-teal-500" )
-        , ( 12, "bg-sky-600" )
-        , ( 14, "bg-lime-700" )
-        , ( 13, "Tw-teal-900" )
-        , ( 16, "bg-lime-600" )
-        , ( 17, "bg-pink-300" )
-
-        -- , ( 18, Tw.sky_500 )
-        -- , ( 19, Tw.teal_200 )
-        -- , ( 20, Tw.pink_500 )
-        -- , ( 21, Tw.teal_300 )
-        -- , ( 22, Tw.lime_200 )
-        -- , ( 23, Tw.sky_900 )
-        -- , ( 24, Tw.pink_600 )
-        -- , ( 25, Tw.teal_600 )
-        -- , ( 26, Tw.sky_800 )
-        -- , ( 27, Tw.pink_900 )
-        -- , ( 28, Tw.sky_200 )
-        -- , ( 29, Tw.lime_800 )
-        -- , ( 30, Tw.pink_800 )
-        -- , ( 31, Tw.sky_300 )
-        -- It's highly unlikely to get more then 31 participants
+        , ( 7, "bg-lime-900" )
+        , ( 8, "bg-teal-700" )
+        , ( 9, "bg-pink-700" )
+        , ( 10, "bg-teal-800" )
+        , ( 11, "bg-lime-900" )
+        , ( 12, "bg-teal-800" )
+        , ( 13, "bg-pink-200" )
+        , ( 14, "bg-lime-300" )
+        , ( 15, "bg-teal-500" )
+        , ( 16, "bg-sky-600" )
+        , ( 17, "bg-lime-700" )
+        , ( 18, "bg-teal-900" )
+        , ( 19, "bg-lime-600" )
+        , ( 20, "bg-pink-300" )
+        , ( 21, "bg-sky-500" )
+        , ( 22, "bg-teal-200" )
+        , ( 23, "bg-pink-500" )
+        , ( 24, "bg-teal-300" )
+        , ( 25, "bg-lime-200" )
+        , ( 26, "bg-sky-900" )
+        , ( 27, "bg-pink-600" )
+        , ( 28, "bg-teal-600" )
+        , ( 29, "bg-sky-800" )
+        , ( 30, "bg-pink-900" )
+        , ( 31, "bg-sky-200" )
+        , ( 32, "bg-lime-800" )
+        , ( 33, "bg-pink-800" )
+        , ( 34, "bg-sky-300" )
         ]

@@ -5,26 +5,19 @@ import Donut.Util as Util
 import Html exposing (Html)
 import Html.Attributes as HA
 import Html.Events as HE
-import Json.Decode
 import List.Extra
 import Svg exposing (Svg)
 import Svg.Attributes as SvgAttr
 
 
 type alias Model =
-    { hoveredSegment : ( Maybe String, Maybe Coords )
-    }
-
-
-type alias Coords =
-    { x : Int
-    , y : Int
+    { hoveredSegment : Maybe String
     }
 
 
 initialModel : Model
 initialModel =
-    { hoveredSegment = ( Nothing, Nothing ) }
+    { hoveredSegment = Nothing }
 
 
 init : ( Model, Cmd Msg )
@@ -46,7 +39,6 @@ type alias DonutOutput =
 type Msg
     = SegmentHovered String
     | SegmentUnhovered
-    | MouseMoved ( Int, Int )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -54,28 +46,13 @@ update msg model =
     case msg of
         SegmentHovered s ->
             ( { model
-                | hoveredSegment = ( Just s, Nothing )
+                | hoveredSegment = Just s
               }
             , Cmd.none
             )
 
-        MouseMoved ( x, y ) ->
-            let
-                updateSegment : ( Maybe String, Maybe Coords )
-                updateSegment =
-                    Tuple.mapSecond
-                        (\_ ->
-                            Just
-                                { x = x
-                                , y = y
-                                }
-                        )
-                        model.hoveredSegment
-            in
-            ( { model | hoveredSegment = updateSegment }, Cmd.none )
-
         SegmentUnhovered ->
-            ( { model | hoveredSegment = ( Nothing, Nothing ) }, Cmd.none )
+            ( { model | hoveredSegment = Nothing }, Cmd.none )
 
 
 inputToOutput : DonutInput -> DonutOutput
@@ -215,11 +192,6 @@ segmentsWithEvents toSelf donutOutput model =
                 , SvgAttr.class "donut-segment"
                 , HE.onMouseOver (toSelf <| SegmentHovered chartData.uniqueVoteValue)
                 , HE.onMouseLeave (toSelf SegmentUnhovered)
-                , HE.on "mousemove"
-                    (Json.Decode.map2 (\x y -> toSelf <| MouseMoved ( x, y ))
-                        (Json.Decode.field "offsetX" Json.Decode.int)
-                        (Json.Decode.field "offsetY" Json.Decode.int)
-                    )
                 ]
                 []
         )
@@ -296,20 +268,23 @@ describeDonutSlice cx cy innerR outerR startAngle endAngle =
 viewTooltip : Model -> DonutOutput -> Html msg
 viewTooltip model donutOutput =
     case model.hoveredSegment of
-        ( Just segmentId, Just segmentCoord ) ->
+        Just segmentId ->
             case List.filter (\c -> c.uniqueVoteValue == segmentId) donutOutput.chartData of
                 [ chartData ] ->
                     Html.div
                         [ HA.class "bg-white w-[100px] shadow-md rounded p-4 border border-gray-200 text-sm absolute"
-                        , HA.style "top" (String.fromInt segmentCoord.y ++ "px")
-                        , HA.style "left" (String.fromInt segmentCoord.x ++ "px")
+                        , HA.style "left" "100%"
                         ]
-                        [ Html.p [ HA.class "text-gray-700 font-medium" ] [ Html.text chartData.uniqueVoteValue ]
-                        , Html.p [ HA.class "text-gray-500" ] [ Html.text (String.fromInt (round chartData.percentage) ++ "%") ]
+                        [ Html.p
+                            [ HA.class "text-gray-700 font-medium" ]
+                            [ Html.text chartData.uniqueVoteValue ]
+                        , Html.p
+                            [ HA.class "text-gray-500" ]
+                            [ Html.text (String.fromInt (round chartData.percentage) ++ "%") ]
                         ]
 
                 _ ->
                     Html.text ""
 
-        _ ->
+        Nothing ->
             Html.text ""
