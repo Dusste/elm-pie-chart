@@ -156,7 +156,7 @@ segmentsWithEvents toSelf donutOutput model =
 
         -- force first segment to start at 45°
         gap =
-            1.0
+            (2 / outerRadius) * 180 / pi
     in
     List.indexedMap
         (\idx chartData ->
