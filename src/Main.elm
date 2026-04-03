@@ -131,7 +131,10 @@ view model =
     let
         donutInputs : List Chart.DonutInput
         donutInputs =
-            [ Chart.GroupedBy users, Chart.GroupedBy users1, Chart.RawAmounts users2 ]
+            [ Chart.GroupedBy users
+            , Chart.GroupedBy users1
+            , Chart.RawAmounts users2
+            ]
     in
     Html.div
         []

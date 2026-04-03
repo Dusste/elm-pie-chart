@@ -181,7 +181,11 @@ segmentsWithEvents toSelf donutOutput model =
 
                 pathD : String
                 pathD =
-                    describeDonutSlice 20 20 innerRadius outerRadius startAngle endAngle
+                    if chartData.percentage == 0 then
+                        "M 20 20 L 20 20"
+
+                    else
+                        describeDonutSlice 20 20 innerRadius outerRadius startAngle endAngle
             in
             Svg.path
                 [ HA.id chartData.uniqueVoteValue
