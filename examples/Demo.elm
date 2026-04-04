@@ -1,4 +1,4 @@
-module Main exposing (main)
+module Demo exposing (main)
 
 import Browser
 import Donut.Chart as Chart
@@ -24,9 +24,7 @@ initialModel =
 
 
 type Msg
-    = Increment
-    | Decrement
-    | ChartMsg Chart.Msg
+    = ChartMsg Chart.Msg
 
 
 
@@ -36,12 +34,6 @@ type Msg
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Increment ->
-            ( { model | count = model.count + 1 }, Cmd.none )
-
-        Decrement ->
-            ( { model | count = model.count - 1 }, Cmd.none )
-
         ChartMsg msg_ ->
             let
                 ( m, cmd ) =
@@ -139,7 +131,7 @@ view model =
     Html.div
         []
         [ Html.h1
-            [ HA.class "text-center text-4xl m-2 text-cyan-400" ]
+            [ HA.class "text-center text-2xl m-2 text-cyan-400" ]
             [ Html.text "Pie Charts" ]
         , Html.ul
             [ HA.class "flex" ]

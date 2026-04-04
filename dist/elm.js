@@ -5163,13 +5163,13 @@ var $author$project$Donut$Chart$initialModel = {hoveredSegment: $elm$core$Maybe$
 var $elm$core$Platform$Cmd$batch = _Platform_batch;
 var $elm$core$Platform$Cmd$none = $elm$core$Platform$Cmd$batch(_List_Nil);
 var $author$project$Donut$Chart$init = _Utils_Tuple2($author$project$Donut$Chart$initialModel, $elm$core$Platform$Cmd$none);
-var $author$project$Main$initialModel = {chart: $author$project$Donut$Chart$init.a, count: 0};
+var $author$project$Demo$initialModel = {chart: $author$project$Donut$Chart$init.a, count: 0};
 var $elm$core$Platform$Sub$batch = _Platform_batch;
 var $elm$core$Platform$Sub$none = $elm$core$Platform$Sub$batch(_List_Nil);
-var $author$project$Main$subscriptions = function (_v0) {
+var $author$project$Demo$subscriptions = function (_v0) {
 	return $elm$core$Platform$Sub$none;
 };
-var $author$project$Main$ChartMsg = function (a) {
+var $author$project$Demo$ChartMsg = function (a) {
 	return {$: 'ChartMsg', a: a};
 };
 var $elm$core$Platform$Cmd$map = _Platform_map;
@@ -5192,32 +5192,17 @@ var $author$project$Donut$Chart$update = F2(
 				$elm$core$Platform$Cmd$none);
 		}
 	});
-var $author$project$Main$update = F2(
+var $author$project$Demo$update = F2(
 	function (msg, model) {
-		switch (msg.$) {
-			case 'Increment':
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{count: model.count + 1}),
-					$elm$core$Platform$Cmd$none);
-			case 'Decrement':
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{count: model.count - 1}),
-					$elm$core$Platform$Cmd$none);
-			default:
-				var msg_ = msg.a;
-				var _v1 = A2($author$project$Donut$Chart$update, msg_, model.chart);
-				var m = _v1.a;
-				var cmd = _v1.b;
-				return _Utils_Tuple2(
-					_Utils_update(
-						model,
-						{chart: m}),
-					A2($elm$core$Platform$Cmd$map, $author$project$Main$ChartMsg, cmd));
-		}
+		var msg_ = msg.a;
+		var _v1 = A2($author$project$Donut$Chart$update, msg_, model.chart);
+		var m = _v1.a;
+		var cmd = _v1.b;
+		return _Utils_Tuple2(
+			_Utils_update(
+				model,
+				{chart: m}),
+			A2($elm$core$Platform$Cmd$map, $author$project$Demo$ChartMsg, cmd));
 	});
 var $author$project$Donut$Chart$GroupedBy = function (a) {
 	return {$: 'GroupedBy', a: a};
@@ -5240,7 +5225,7 @@ var $elm$html$Html$li = _VirtualDom_node('li');
 var $elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
 var $elm$html$Html$text = $elm$virtual_dom$VirtualDom$text;
 var $elm$html$Html$ul = _VirtualDom_node('ul');
-var $author$project$Main$users = _List_fromArray(
+var $author$project$Demo$users = _List_fromArray(
 	[
 		{
 		color: $elm$core$Maybe$Just('red'),
@@ -5262,7 +5247,7 @@ var $author$project$Main$users = _List_fromArray(
 		label: 'Name 4'
 	}
 	]);
-var $author$project$Main$users1 = _List_fromArray(
+var $author$project$Demo$users1 = _List_fromArray(
 	[
 		{
 		color: $elm$core$Maybe$Just('red'),
@@ -5290,7 +5275,7 @@ var $author$project$Main$users1 = _List_fromArray(
 		label: 'Name 5'
 	}
 	]);
-var $author$project$Main$users2 = _List_fromArray(
+var $author$project$Demo$users2 = _List_fromArray(
 	[
 		{
 		amount: 30,
@@ -6101,12 +6086,12 @@ var $author$project$Donut$Chart$view = F3(
 					A2($author$project$Donut$Chart$viewTooltip, model, donutOutput)
 				]));
 	});
-var $author$project$Main$view = function (model) {
+var $author$project$Demo$view = function (model) {
 	var donutInputs = _List_fromArray(
 		[
-			$author$project$Donut$Chart$GroupedBy($author$project$Main$users),
-			$author$project$Donut$Chart$GroupedBy($author$project$Main$users1),
-			$author$project$Donut$Chart$RawAmounts($author$project$Main$users2)
+			$author$project$Donut$Chart$GroupedBy($author$project$Demo$users),
+			$author$project$Donut$Chart$GroupedBy($author$project$Demo$users1),
+			$author$project$Donut$Chart$RawAmounts($author$project$Demo$users2)
 		]);
 	return A2(
 		$elm$html$Html$div,
@@ -6117,7 +6102,7 @@ var $author$project$Main$view = function (model) {
 				$elm$html$Html$h1,
 				_List_fromArray(
 					[
-						$elm$html$Html$Attributes$class('text-center text-4xl m-2 text-cyan-400')
+						$elm$html$Html$Attributes$class('text-center text-2xl m-2 text-cyan-400')
 					]),
 				_List_fromArray(
 					[
@@ -6140,20 +6125,20 @@ var $author$project$Main$view = function (model) {
 								]),
 							_List_fromArray(
 								[
-									A3($author$project$Donut$Chart$view, $author$project$Main$ChartMsg, inputs, model.chart)
+									A3($author$project$Donut$Chart$view, $author$project$Demo$ChartMsg, inputs, model.chart)
 								]));
 					},
 					donutInputs))
 			]));
 };
-var $author$project$Main$main = $elm$browser$Browser$element(
+var $author$project$Demo$main = $elm$browser$Browser$element(
 	{
 		init: function (_v0) {
-			return _Utils_Tuple2($author$project$Main$initialModel, $elm$core$Platform$Cmd$none);
+			return _Utils_Tuple2($author$project$Demo$initialModel, $elm$core$Platform$Cmd$none);
 		},
-		subscriptions: $author$project$Main$subscriptions,
-		update: $author$project$Main$update,
-		view: $author$project$Main$view
+		subscriptions: $author$project$Demo$subscriptions,
+		update: $author$project$Demo$update,
+		view: $author$project$Demo$view
 	});
-_Platform_export({'Main':{'init':$author$project$Main$main(
+_Platform_export({'Demo':{'init':$author$project$Demo$main(
 	$elm$json$Json$Decode$succeed(_Utils_Tuple0))(0)}});}(this));
