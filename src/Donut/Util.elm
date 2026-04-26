@@ -9,7 +9,7 @@ slice start end lst =
     List.take (end - start) (List.drop start lst)
 
 
-fromComplexToChartData : List SharedTypes.RawDataPoint -> List SharedTypes.ChartData
+fromComplexToChartData : List (SharedTypes.RawDataPoint a) -> List (SharedTypes.ChartData a)
 fromComplexToChartData dataPointLst =
     let
         totalAmount : Int
@@ -18,7 +18,7 @@ fromComplexToChartData dataPointLst =
                 |> List.map .amount
                 |> List.sum
 
-        chartDataLst : List SharedTypes.ChartData
+        chartDataLst : List (SharedTypes.ChartData a)
         chartDataLst =
             dataPointLst
                 |> List.map
@@ -27,13 +27,14 @@ fromComplexToChartData dataPointLst =
                         , uniqueVoteValue = dataPoint.label
                         , id = dataPoint.id
                         , color = Just <| fromTWcolorToHex dataPoint.color
+                        , onClick = dataPoint.onClick
                         }
                     )
     in
     chartDataLst
 
 
-toChartData : Float -> Float -> List SharedTypes.DataPoint -> List SharedTypes.ChartData
+toChartData : Float -> Float -> List (SharedTypes.DataPoint a) -> List (SharedTypes.ChartData a)
 toChartData numOfVoters numOfVariations sortedLst =
     case sortedLst of
         [] ->
@@ -54,6 +55,7 @@ toChartData numOfVoters numOfVariations sortedLst =
                 , uniqueVoteValue = x.groupBy
                 , id = x.id
                 , color = Just determineColor
+                , onClick = x.onClick
                 }
                     :: toChartData 1 numOfVariations []
 
@@ -65,6 +67,7 @@ toChartData numOfVoters numOfVariations sortedLst =
                 , percentage = numOfVoters / numOfVariations * 100
                 , id = x.id
                 , color = Just determineColor
+                , onClick = x.onClick
                 }
                     :: toChartData 1 numOfVariations xs
 

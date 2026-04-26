@@ -25,13 +25,13 @@ init =
     ( initialModel, Cmd.none )
 
 
-type DonutInput
-    = GroupedBy (List SharedTypes.DataPoint)
-    | RawAmounts (List SharedTypes.RawDataPoint)
+type DonutInput a
+    = GroupedBy (List (SharedTypes.DataPoint a))
+    | RawAmounts (List (SharedTypes.RawDataPoint a))
 
 
-type alias DonutOutput =
-    { chartData : List SharedTypes.ChartData
+type alias DonutOutput a =
+    { chartData : List (SharedTypes.ChartData a)
     , cumulativeOffsets : List Float
     }
 
@@ -55,10 +55,10 @@ update msg model =
             ( { model | hoveredSegment = Nothing }, Cmd.none )
 
 
-inputToOutput : DonutInput -> DonutOutput
+inputToOutput : DonutInput a -> DonutOutput a
 inputToOutput dataPoint =
     let
-        chartDataLst : List SharedTypes.ChartData
+        chartDataLst : List (SharedTypes.ChartData a)
         chartDataLst =
             case dataPoint of
                 GroupedBy dataPointLst ->
@@ -105,10 +105,10 @@ inputToOutput dataPoint =
     }
 
 
-view : (Msg -> msg) -> DonutInput -> Model -> Html msg
+view : (Msg -> msg) -> DonutInput a -> Model -> Html msg
 view toSelf donutInput model =
     let
-        donutOutput : DonutOutput
+        donutOutput : DonutOutput a
         donutOutput =
             inputToOutput donutInput
     in
@@ -139,7 +139,7 @@ view toSelf donutInput model =
         ]
 
 
-segmentsWithEvents : (Msg -> msg) -> DonutOutput -> Model -> List (Svg msg)
+segmentsWithEvents : (Msg -> msg) -> DonutOutput a -> Model -> List (Svg msg)
 segmentsWithEvents toSelf donutOutput model =
     let
         outerRadius : Float
@@ -269,7 +269,7 @@ describeDonutSlice cx cy innerR outerR startAngle endAngle =
         ]
 
 
-viewTooltip : Model -> DonutOutput -> Html msg
+viewTooltip : Model -> DonutOutput a -> Html msg
 viewTooltip model donutOutput =
     case model.hoveredSegment of
         Just segmentId ->
